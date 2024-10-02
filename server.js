@@ -1,19 +1,13 @@
-/*
-Inside server.js, create the Express server:
+// Description: Main entry point for the server.
+import express from "express";
+import startServer from "./libs/boot";
+import injectRoutes from "./routes";
+import injectMiddlewares from "./libs/middlewares";
 
-it should listen on the port set by the environment variable PORT or by default 5000
-it should load all routes from the file routes/index.js
-*/
+const server = express();
 
-import express from 'express';
-import routes from './routes';
+injectMiddlewares(server);
+injectRoutes(server);
+startServer(server);
 
-const port = process.env.PORT || 5000;
-const app = express();
-
-app.use(express.json({ limit: '50mb' }));
-app.use(routes);
-
-app.listen(port, () => console.log(`Server running on ${port}`));
-
-export default app;
+export default server;
